@@ -1,0 +1,73 @@
+form{
+    margin-top: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+    flex-direction: row;
+    
+    .field {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+    }
+}
+
+
+label {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+input{
+    padding: 15px;
+    background-color: #f6f6f6;
+    border: none;
+    border-radius: 5px;
+    margin: 10px 0;
+    outline: none;
+}
+
+.preference {
+    margin: 10px 0;
+
+}
+
+mat-radio-button{
+ margin-right: 10px;
+ margin-bottom: 10px;
+}
+
+.column{
+    display: flex;
+    flex-direction: column;
+}
+
+.privacy{
+    span{
+        color: #6DA9CC;
+    }
+}
+
+button{
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 5px;
+    color: white;
+    background-color: #EA4C89;
+    outline: none;
+    border: none;
+    width: 40%;
+}
+
+
+.error-text {
+    color: red;
+    display: block;
+    margin-bottom: 10px;
+}
+
+mat-error{
+    margin-bottom: 10px;
+}
