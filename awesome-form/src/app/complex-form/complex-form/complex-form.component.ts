@@ -7,7 +7,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { map, Observable, startWith, tap } from 'rxjs';
-import { validityForm } from '../service/validityForm.service';
 import { confirmEqualValidator } from '../validators/confirm-equal.validators';
 import { createPasswordStrengthValidator } from '../validators/passwordStrength.validator';
 
