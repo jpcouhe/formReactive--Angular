@@ -5,7 +5,7 @@
 # Formulaire Complexe 
 
 <p align="center">
-<img src="form-screen.png" alt="drawing" width='100%'/>
+<img src="form-landing.png" alt="drawing" width='100%'/>
 </p>
 
 Création d'une page d'inscription
