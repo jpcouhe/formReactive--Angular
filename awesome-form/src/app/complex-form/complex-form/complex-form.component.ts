@@ -9,6 +9,7 @@ import {
 import { map, Observable, startWith, tap } from 'rxjs';
 import { validityForm } from '../service/validityForm.service';
 import { confirmEqualValidator } from '../validators/confirm-equal.validators';
+import { createPasswordStrengthValidator } from '../validators/passwordStrength.validator';
 
 
 @Component({
@@ -43,7 +44,6 @@ export class ComplexFormComponent implements OnInit {
   showPasswordError$!: Observable<boolean>;
   constructor(
     private formBuilder: FormBuilder,
-    private validateService: validityForm
   ) {}
 
   ngOnInit(): void {
@@ -74,7 +74,7 @@ export class ComplexFormComponent implements OnInit {
 
     this.phoneCtrl = this.formBuilder.control('');
 
-    this.passwordCtrl = this.formBuilder.control('', Validators.required);
+    this.passwordCtrl = this.formBuilder.control('', [Validators.required,createPasswordStrengthValidator()]);
     this.confirmPasswordCtrl = this.formBuilder.control(
       '',
       Validators.required
@@ -111,13 +111,15 @@ export class ComplexFormComponent implements OnInit {
       })
     );
 
-    this.showEmailCtrl$ = this.contactPreferenceCtrl.valueChanges.pipe(
+ 
+    this.showPhoneCtrl$ = this.contactPreferenceCtrl.valueChanges.pipe(
       startWith(this.contactPreferenceCtrl.value),
-      map((preference) => preference === 'email'),
-      tap((showEmailCtrl) => {
-        this.setEmailValidators(showEmailCtrl);
+      map((preference) => preference === 'phone'),
+      tap(showPhoneCtrl => {
+     this.setPhoneValidators(showPhoneCtrl)
       })
-    );
+    )
+
 
     this.showEmailError$ = this.emailForm.statusChanges.pipe(
       map(
@@ -184,10 +186,10 @@ export class ComplexFormComponent implements OnInit {
       return 'Ce numéro de téléphone ne conteint pas assez de chiffres';
     } else if (ctrl.hasError('maxlength')) {
       return 'Ce numéro de téléphone contient trop de chiffres';
-    } else if (ctrl.hasError('validValidator')) {
-      return 'Cette adresse ne contient pas le mot valid';
+    } else if (ctrl.hasError('passwordStrength')) {
+      return 'Cette champs doit contenir une majuscule, une minuscule et 1 symbole';
     } else {
-      return 'Ce champ contient une erreur';
+      return '';
     }
   }
 }

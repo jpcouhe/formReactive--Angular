@@ -1,8 +1,8 @@
 <form [formGroup]="mainForm">
   <div class="card row" formGroupName="personalInfo">
     <div class="field">
-      <label>Prénom</label>
-      <input type="text" formControlName="firstname" />
+      <label for="firstname">Prénom</label>
+      <input type="text" formControlName="firstname" id='firstname'/>
     </div>
     <div class="field">
       <label>Nom</label>
@@ -17,16 +17,17 @@
     </mat-radio-group>
   </div>
   <div class="card row" [formGroup]="emailForm" *ngIf="showEmailCtrl$ | async">
-    <mat-form-field class="field">
+    <div class="field">
       <label>Adresse Mail</label>
-      <input type="email"  formControlName="email" />
-      <mat-error> {{ getFormControlErrorText(emailCtrl) }}</mat-error>
-    </mat-form-field>
-    <mat-form-field class="field">
+      <input type="email" formControlName="email" />
+      <small class="error-text" *ngIf="emailForm.errors">{{
+        getFormControlErrorText(emailCtrl)
+      }}</small>
+    </div>
+    <div class="field">
       <label>Confirmer votre adresse mail</label>
-      <input type="email"  formControlName="confirm" />
-      <mat-error> {{ getFormControlErrorText(confirmEmailCtrl) }}</mat-error>
-    </mat-form-field>
+      <input type="email" formControlName="confirm" />
+    </div>
   </div>
   <small class="error-text" *ngIf="showEmailError$ | async"
     >Les deux adresses ne correspondent pas</small
@@ -34,6 +35,9 @@
   <div class="card column" *ngIf="showPhoneCtrl$ | async">
     <label>Numéro de téléphone</label>
     <input type="text" [formControl]="phoneCtrl" />
+    <small class="error-text" *ngIf="phoneCtrl.errors && phoneCtrl.dirty">{{
+      getFormControlErrorText(phoneCtrl)
+    }}</small>
   </div>
   <div class="card" [formGroup]="loginInfoForm">
     <div class="field column">
@@ -41,18 +45,19 @@
       <input type="text" formControlName="username" />
     </div>
     <div class="row">
-      <mat-form-field class="field">
+      <div class="field">
         <label>Mot de passe</label>
         <input type="password" formControlName="password" />
-      </mat-form-field>
-      <mat-form-field class="field">
+      </div>
+      <div class="field">
         <label>Confirmer votre mot de passe</label>
         <input type="password" formControlName="confirmPassword" />
-      </mat-form-field>
+      </div>
     </div>
   </div>
-  <small class="error-text" *ngIf(passwordCtrl.value)> {{ getFormControlErrorText(passwordCtrl) }}</small>
-  <mat-error> {{ getFormControlErrorText(passwordCtrl) }}</mat-error>
+  <small class="error-text" *ngIf="loginInfoForm.errors">
+    {{ getFormControlErrorText(passwordCtrl) }}</small
+  >
   <small class="error-text" *ngIf="showPasswordError$! | async"
     >Les Mot de passe ne correspondent pas</small
   >
@@ -64,5 +69,11 @@
       default <span>Notification Settings</span>.
     </p>
   </div>
-  <button (click)="onSubmitForm()" *ngIf='mainForm.valid '[disabled]="mainForm.invalid">Create Account</button>
+  <button
+    (click)="onSubmitForm()"
+    *ngIf="mainForm.valid"
+    [disabled]="mainForm.invalid"
+  >
+    Create Account
+  </button>
 </form>
